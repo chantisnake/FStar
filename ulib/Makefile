@@ -85,3 +85,20 @@ wc:
 mgen:
 	mkdir -p ml/extracted
 	$(FSTAR) --lax --codegen OCaml --odir ml/extracted --no_extract FStar.List.Tot --no_extract FStar.List.Tot.Base --no_extract FStar.Heap --no_extract FStar.List.Tot.Properties FStar.Set.fst FStar.TSet.fst FStar.Map.fst FStar.HyperHeap.fst FStar.HyperStack.fst
+
+
+CFSTAR=$(subst CURRENT_DIR,ulib,$(CVERFSTAR))
+
+%-cver: %
+	$(CFSTAR) $^
+st-cver:
+	$(CFSTAR) FStar.Map.fst FStar.HyperHeap.fst hyperheap/FStar.ST.fst FStar.Util.fst		
+m_rref-cver: 
+	$(CFSTAR) FStar.Map.fst FStar.HyperStack.fst hyperstack/FStar.ST.fst hyperstack/FStar.All.fst FStar.Monotonic.RRef.fst FStar.Monotonic.Seq.fst
+bufferq-cver:
+	$(CFSTAR) FStar.Map.fst FStar.HyperStack.fst hyperstack/FStar.ST.fst FStar.Buffer.fst FStar.Buffer.Quantifiers.fst
+struct-cver:
+	$(CFSTAR) FStar.Map.fst FStar.HyperStack.fst hyperstack/FStar.ST.fst hyperstack/FStar.All.fst FStar.Buffer.fst FStar.Struct.fst
+
+all-cver: $(CVERCONFIG) $(addsuffix -cver, $(ALL)) st-cver m_rref-cver bufferq-cver struct-cver
+	true

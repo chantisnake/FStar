@@ -64,3 +64,10 @@ Ex01a-ocaml: out Ex01a.fst
 	$(FSTAR) $(FSTAR_DEFAULT_ARGS) --odir out --codegen OCaml Ex01a.fst
 	$(OCAMLOPT) out/Ex01a.ml -o Ex01a.exe 2>&1
 	-./Ex01a.exe 2>&1
+
+CFSTAR=$(subst CURRENT_DIR,doc/tutorial/code/solutions,$(CVERFSTAR))
+cverify-%: __force__
+	$(CFSTAR) --include $(FSTAR_HOME)/ucontrib/Platform/fst --include $(FSTAR_HOME)/ucontrib/CoreCrypto/fst $*
+cverify_hh-%: __force__
+	$(CFSTAR) --include $(HYPERHEAP) $*
+all-cver: $(VERFILES:%=cverify-%) $(VERFILES_HH:%=cverify_hh-%)
