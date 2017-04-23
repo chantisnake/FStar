@@ -76,3 +76,5 @@ tags
 /nuobj/
 nubuild.log
 nubuild.progress
+
+tmp

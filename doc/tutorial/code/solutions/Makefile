@@ -66,8 +66,8 @@ Ex01a-ocaml: out Ex01a.fst
 	-./Ex01a.exe 2>&1
 
 CFSTAR=$(subst CURRENT_DIR,doc/tutorial/code/solutions,$(CVERFSTAR))
-cverify-%: __force__
+cverify-%: __force__ CVERCONFIG 
 	$(CFSTAR) --include $(FSTAR_HOME)/ucontrib/Platform/fst --include $(FSTAR_HOME)/ucontrib/CoreCrypto/fst $*
-cverify_hh-%: __force__
+cverify_hh-%: __force__ CVERCONFIG
 	$(CFSTAR) --include $(HYPERHEAP) $*
 all-cver: $(VERFILES:%=cverify-%) $(VERFILES_HH:%=cverify_hh-%)
