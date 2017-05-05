@@ -62,7 +62,6 @@ Ex01a-ocaml: out Ex01a.fst
 	$(OCAMLOPT) out/Ex01a.ml -o Ex01a.exe
 	-./Ex01a.exe
 
-CFSTAR=$(subst CURRENT_DIR,doc/tutorial/code/exercises,$(CVERFSTAR))
 cverify-%: __force__ CVERCONFIG
 	$(CFSTAR) --include $(FSTAR_HOME)/ucontrib/Platform/fst --include $(FSTAR_HOME)/ucontrib/CoreCrypto/fst $*
 cverify_hh-%: __force__ CVERCONFIG
